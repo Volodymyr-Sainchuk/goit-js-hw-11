@@ -38,3 +38,4 @@ new SimpleLightbox('.gallery-item a', {
   captionsData: 'alt',
   captionDelay: 250,
 });
+console.log('hello');
