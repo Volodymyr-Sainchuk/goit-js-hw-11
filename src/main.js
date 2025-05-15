@@ -12,9 +12,21 @@ form.addEventListener('submit', e => {
 
   const userValue = e.target.elements['search-text'].value;
   all.showLoader();
+
+  if (userValue.trim() === '') {
+    iziToast.show({
+      title: 'Warning',
+      message: 'Please enter a search term before submitting!',
+      position: 'topRight',
+      color: 'yellow',
+    });
+    e.target.reset();
+    return;
+  }
+  all.clearGallery();
   getImagesByQuery(userValue)
     .then(data => {
-      if (userValue.trim() === '' || data.length === 0) {
+      if (data.length === 0) {
         iziToast.show({
           title: 'Error',
           message:
@@ -31,7 +43,6 @@ form.addEventListener('submit', e => {
       all.hideLoader();
     });
   e.target.reset();
-  all.clearGallery();
 });
 
 new SimpleLightbox('.gallery-item a', {
